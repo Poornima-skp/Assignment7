@@ -1,0 +1,30 @@
+name: Build and Push Container
+on:
+  push:
+    branches:
+      - main
+services:
+  web:
+    image: Nginx
+    expose:
+      - 80
+    volumes:
+      - type: /html
+    command: 
+      - |
+        sh -c "mkdir /structure && chmod 777 /structure"
+        sh -c "touch /structure/sync-work"
+        sh -c "touch /structure/nobody-work"
+        
+  
+  db:
+    image: MySQL
+    environment:
+      - MYSQL_ROOT_PASSWORD=mysecretpassword
+      - MYSQL_DATABASE=mydatabase
+    volumes:
+      - type: /data
+   
+        
+
+  
